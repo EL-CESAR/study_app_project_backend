@@ -5,6 +5,7 @@ const ThemesService = require('../../service/themes.service');
 const listar = async function (req, res) {
     console.log("listar temas");
 
+    
     try {
         const themes = await ThemesService.listar(req.query.filtro || '');
         if (themes && themes) {
