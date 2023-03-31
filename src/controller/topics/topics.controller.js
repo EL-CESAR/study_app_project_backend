@@ -85,7 +85,7 @@ const actualizar = async function (req, res) {
 const eliminar = async function (req, res) {
     console.log("eliminar topicos");
     try {
-        const topicoRetorno = await TopicsService.eliminar(req.params.id);
+        const topicoRetorno = await topicsService.eliminar(req.params.id);
         res.json({
             success: topicoRetorno,
         });
