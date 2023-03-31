@@ -21,20 +21,25 @@ const listar = async function (textoBuscar) {
     }
 };
 
-const buscarPorCodigo = async function (codigo) {
-    console.log("Consultar 1 topico por codigo");
+const consultarPorCodigo = async function (id) {
+    console.log("consultar 1 topico por codigo");
+
     try {
-        const topicsModelResult = await TopicModel.findByPk(codigo);
+        const topicsModelResult = await TopicModel.findByPk(id);
+
         if (topicsModelResult) {
             return topicsModelResult;
         } else {
-            return [];
+            return null;
+
         }
     } catch (error) {
         console.log(error);
         throw error;
     }
+
 };
+
 
 const actualizar = async function (id, create_date, name, topic_id, order, priority, color, user_id, owner_user_id) {
     console.log("actualizar topicos");
@@ -60,15 +65,22 @@ const actualizar = async function (id, create_date, name, topic_id, order, prior
     }
 };
 
-const eliminar = async function (codigo) {
+const eliminar = async function (id) {
     console.log("eliminar topicos");
+
     try {
-        TopicModel.destroy({ where: { id: codigo, topic_id: codigo }}, { truncate: false });
+        await TopicModel.destroy({ where: { id: id } });
+        return true;
     } catch (error) {
+
         console.log(error);
         throw error;
+
+
     }
 };
 
-module.exports = { listar, buscarPorCodigo, actualizar, eliminar};
+module.exports = {
+    listar, consultarPorCodigo, actualizar, eliminar
+};
 

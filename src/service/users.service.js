@@ -23,20 +23,23 @@ console.log("listar usuarios service");
     }
 };
 
-const consultarPorCodigo = async function (codigo) {
-    console.log("Consultar 1 usuario por codigo");
+const consultarPorCodigo = async function (id) {
+
+    console.log("consultar 1 usuario por codigo");
     try {
-        const userModelResult = await UserModel.findByPk(codigo);
+        const userModelResult = await UserModel.findByPk(id);
+
         if (userModelResult) {
             return userModelResult;
         } else {
-            return [];
+           return null;
         }
     } catch (error) {
         console.log(error);
         throw error;
     }
 };
+
 
 const actualizar = async function (id, name, last_name, avatar, email, password, deleted) {
     console.log("actualizar usuarios");
@@ -60,14 +63,19 @@ const actualizar = async function (id, name, last_name, avatar, email, password,
     }
 };
 
-const eliminar = async function (req, res) {
+const eliminar = async function (id) {
     console.log("eliminar usuarios");
+
     try {
-        await sequelize.query("UPDATE users SET deleted=true WHERE id = " + codigo);
+        await UserModel.update({deleted: true },{where: {id: id}});
+        return true;
     } catch (error) {
         console.log(error);
         throw error;
     }
 };
 
-module.exports = {listar, consultarPorCodigo, actualizar, eliminar};
+
+module.exports = {
+    listar, busquedaPorCodigo: consultarPorCodigo, actualizar, eliminar
+};

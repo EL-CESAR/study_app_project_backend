@@ -5,7 +5,6 @@ const ThemesService = require('../../service/themes.service');
 const listar = async function (req, res) {
     console.log("listar temas");
 
-    
     try {
         const themes = await ThemesService.listar(req.query.filtro || '');
         if (themes && themes) {
@@ -28,29 +27,31 @@ const listar = async function (req, res) {
     }
 };
 
-const buscarPorCodigo = async function (req, res) {
-    console.log("consultar 1 tema por codigo");
+const consultarPorCodigo = async function (req, res) {
+    console.log("consultar 1 tema/propiedad por codigo");
     try {
-        const themeModelResult = await ThemesService.consultarPorCodigo(req.params.filtro || '');
-        if (themeModelResult) {
+        const themes_propertiesModelResult = await ThemesPropertiesService.consultarPorCodigo(req.params.id);
+        if (themes_propertiesModelResult) {
             res.json({
-                succes: true,
-                tema: themeModelResult
+                success: true,
+                temas_propiedades: themes_propertiesModelResult
             });
         } else {
             res.json({
-                succes: true,
-                tema: null
+                success: true,
+                temas_propiedades: null
             });
         }
     } catch (error) {
         console.log(error);
         res.json({
-            succes: false,
+            success: false,
             error: error.message
         });
     }
 };
+
+
 
 const actualizar = async function (req, res) {
     console.log("actualizar temas");
@@ -77,21 +78,23 @@ const actualizar = async function (req, res) {
 };
 
 const eliminar = async function (req, res) {
-    console.log("eliminar temas");
+    console.log("eliminar temas propiedades");
+   
     try {
-        await ThemesService.eliminar(req.params.filtro || '');
+        const tema_propiedadRetorno =  await ThemesPropertiesService.eliminar(req.params.id);
         res.json({
-            succes: true
+            success: tema_propiedadRetorno,
         });
+
     } catch (error) {
         console.log(error);
         res.json({
-            succes: false,
+            success: false,
             error: error.message
         });
     }
-};
+}; 
 
 module.exports = {
-    listar, buscarPorCodigo, actualizar, eliminar
+    listar, consultarPorCodigo, actualizar, eliminar
 };

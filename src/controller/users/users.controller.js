@@ -28,9 +28,12 @@ console.log("listar usuarios controller");
 };
 
 const consultarPorCodigo = async function (req, res) {
-    console.log("Consultar 1 usuario por codigo");
+
+    console.log("consultar 1 usuario por codigo");
+
     try {
-        const userModelResult = await UserService.consultarPorCodigo(req.params.filtro || "");
+
+        const userModelResult = await UserService.busquedaPorCodigo(req.params.id);
         if (userModelResult) {
             res.json({
                 success: true,
@@ -39,7 +42,7 @@ const consultarPorCodigo = async function (req, res) {
         } else {
             res.json({
                 success: true,
-                usuario: []
+                usuario: null
             });
         }
     } catch (error) {
@@ -77,13 +80,15 @@ const actualizar = async function (req, res) {
 
 const eliminar = async function (req, res) {
     console.log("eliminar usuarios");
+  
     try {
-        await UserService.eliminar(req.params.filtro || '');
+        const usuarioRetorno = await UserService.eliminar(req.params.id);
         res.json({
-            success: true
+            success: usuarioRetorno,
         });
+
     } catch (error) {
-        console.log(error);
+         console.log(error);
         res.json({
             success: false,
             error: error.message
@@ -91,4 +96,7 @@ const eliminar = async function (req, res) {
     }
 };
 
-module.exports = { listar, busquedaPorCodigo: consultarPorCodigo, actualizar, eliminar };
+
+module.exports = {
+    listar, busquedaPorCodigo: consultarPorCodigo, actualizar, eliminar
+};

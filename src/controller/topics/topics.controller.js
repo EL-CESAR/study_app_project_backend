@@ -26,29 +26,36 @@ const listar = async function (req, res) {
     }
 };
 
-const buscarPorCodigo = async function (req, res) {
+const consultarPorCodigo = async function (req, res) {
     console.log("consultar 1 topico por codigo");
+
     try {
-        const topicModelResult = await topicsService.buscarPorCodigo(req.params.filtro || "");
-        if (topicModelResult) {
+        const topicsModelResult = await TopicsService.consultarPorCodigo(req.params.id);
+
+        if (topicsModelResult) {
             res.json({
-                succes: true,
-                topic: topicModelResult,
+                success: true,
+                topicos: topicsModelResult
             });
+
         } else {
             res.json({
-                succes: true,
-                topico: [],
+                success: true,
+                topicos: null
             });
+
         }
     } catch (error) {
         console.log(error);
         res.json({
-            succes: false,
-            error: error.message,
+            success: false,
+            error: error.message
         });
+
     }
+
 };
+
 
 const actualizar = async function (req, res) {
     console.log("actualizar topicos");
@@ -77,46 +84,27 @@ const actualizar = async function (req, res) {
 }
 };
 
-/*const actualizar = async function (req, res) {
-        console.log("actualizar usuarios");
-        let usuarioRetorno = null;
-        try {
-            usuarioRetorno = await UserService.actualizar(req.body.id,
-                req.body.name,
-                req.body.last_name,
-                req.body.avatar,
-                req.body.email,
-                req.body.password,
-                req.body.deleted);
+
+const eliminar = async function (req, res) {
+    console.log("eliminar topicos");
+
+    try {
+        const topicoRetorno = await TopicsService.eliminar(req.params.id);
         res.json({
-            success: true,
-            user: usuarioRetorno
+            success: topicoRetorno,
         });
+
     } catch (error) {
         console.log(error);
         res.json({
             success: false,
             error: error.message
         });
-    }
-};*/
 
-const eliminar = async function (req, res) {
-console.log("eliminar topicos");
-try {
-    await topicsService.eliminar(req.params.filtro || '');
-    res.json({
-        success: true
-    });
-} catch (error) {
-    console.log(error);
-    res.json({
-        success: false,
-        error: error.message
-    });
-}
+
+    }
 };
 
 module.exports = {
-    listar, buscarPorCodigo, actualizar, eliminar
+    listar, consultarPorCodigo, actualizar, eliminar
 };

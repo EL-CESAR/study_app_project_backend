@@ -22,21 +22,26 @@ const listar = async function (textoBuscar) {
     }
 };
 
-const consultarPorCodigo = async function (codigo) {
-    console.log("Consultar 1 tema por codigo");
+const consultarPorCodigo = async function (id) {
+
+    console.log("consultar 1 tema por codigo");
+
     try {
-        const themesModelResult = await ThemeModel.findByPk(codigo);
+        const themesModelResult = await ThemeModel.findByPk(id);
 
         if (themesModelResult) {
             return themesModelResult;
+
         } else {
-            return [];
+            return null;
         }
     } catch (error) {
         console.log(error);
         throw error;
     }
+
 };
+
 
 const actualizar = async function (id, create_date, name, description, keywords, owner_user_id) {
     console.log("actualizar temas");
@@ -62,14 +67,18 @@ const actualizar = async function (id, create_date, name, description, keywords,
     }
 };
 
-const eliminar = async function (req, res) {
+const eliminar = async function (id) {
     console.log("eliminar temas");
+
     try {
-        ThemeModel.destroy({ where: { id: codigo }}, { truncate: false });
+        await ThemeModel.destroy({ where: { id: id } });
+        return true;
     } catch (error) {
         console.log(error);
         throw error;
     }
 };
 
-module.exports = { listar, consultarPorCodigo, actualizar, eliminar};
+module.exports = {
+    listar, consultarPorCodigo, actualizar, eliminar
+};
