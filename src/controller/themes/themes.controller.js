@@ -1,6 +1,6 @@
 const { sequelize } = require("../../connection");
 const { ThemeModel } = require("../../model/themes.model");
-const ThemesService = require('../../service/themes.service');
+const ThemesService = require("../../service/themes.service");
 
 const listar = async function (req, res) {
     console.log("listar temas");
@@ -28,18 +28,18 @@ const listar = async function (req, res) {
 };
 
 const consultarPorCodigo = async function (req, res) {
-    console.log("consultar 1 tema/propiedad por codigo");
+    console.log("consultar 1 tema por codigo");
     try {
-        const themes_propertiesModelResult = await ThemesPropertiesService.consultarPorCodigo(req.params.id);
-        if (themes_propertiesModelResult) {
+        const themesModelResult = await ThemesService.consultarPorCodigo(req.params.id);
+        if (themesModelResult) {
             res.json({
                 success: true,
-                temas_propiedades: themes_propertiesModelResult
+                temas: themesModelResult
             });
         } else {
             res.json({
                 success: true,
-                temas_propiedades: null
+                temas: null
             });
         }
     } catch (error) {

@@ -29,7 +29,7 @@ const listar = async function (req, res) {
 const consultarPorCodigo = async function (req, res) {
     console.log("consultar 1 topico por codigo");
     try {
-        const topicsModelResult = await TopicsService.consultarPorCodigo(req.params.id);
+        const topicsModelResult = await topicsService.consultarPorCodigo(req.params.id);
 
         if (topicsModelResult) {
             res.json({
