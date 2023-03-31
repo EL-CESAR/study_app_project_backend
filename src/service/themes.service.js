@@ -11,7 +11,6 @@ const listar = async function (textoBuscar) {
                                              AND UPPER(name) LIKE UPPER('%${textoBuscar}%') 
                                              ORDER BY id`);
         if (themes && themes[0]) {
-            
                 return themes[0];
         } else {
             return [];
@@ -23,15 +22,11 @@ const listar = async function (textoBuscar) {
 };
 
 const consultarPorCodigo = async function (id) {
-
     console.log("consultar 1 tema por codigo");
-
     try {
         const themesModelResult = await ThemeModel.findByPk(id);
-
         if (themesModelResult) {
             return themesModelResult;
-
         } else {
             return null;
         }
@@ -39,13 +34,11 @@ const consultarPorCodigo = async function (id) {
         console.log(error);
         throw error;
     }
-
 };
 
 
 const actualizar = async function (id, create_date, name, description, keywords, owner_user_id) {
     console.log("actualizar temas");
-    //Variables
         let temaRetorno = null;
         const data = {id, create_date, name, description, keywords, owner_user_id};
         try {
@@ -57,7 +50,6 @@ const actualizar = async function (id, create_date, name, description, keywords,
             temaRetorno = await ThemeModel.update(data, { where : {id : id}});
             temaRetorno = data;
         } else {
-            
             temaRetorno = await ThemeModel.create(data);
         }
         return temaRetorno;
@@ -69,7 +61,6 @@ const actualizar = async function (id, create_date, name, description, keywords,
 
 const eliminar = async function (id) {
     console.log("eliminar temas");
-
     try {
         await ThemeModel.destroy({ where: { id: id } });
         return true;

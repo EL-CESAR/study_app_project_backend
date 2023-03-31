@@ -51,8 +51,6 @@ const consultarPorCodigo = async function (req, res) {
     }
 };
 
-
-
 const actualizar = async function (req, res) {
     console.log("actualizar temas");
     let temaRetorno = null;
@@ -79,7 +77,6 @@ const actualizar = async function (req, res) {
 
 const eliminar = async function (req, res) {
     console.log("eliminar temas propiedades");
-   
     try {
         const tema_propiedadRetorno =  await ThemesPropertiesService.eliminar(req.params.id);
         res.json({

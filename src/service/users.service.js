@@ -24,11 +24,9 @@ console.log("listar usuarios service");
 };
 
 const consultarPorCodigo = async function (id) {
-
     console.log("consultar 1 usuario por codigo");
     try {
         const userModelResult = await UserModel.findByPk(id);
-
         if (userModelResult) {
             return userModelResult;
         } else {
@@ -65,7 +63,6 @@ const actualizar = async function (id, name, last_name, avatar, email, password,
 
 const eliminar = async function (id) {
     console.log("eliminar usuarios");
-
     try {
         await UserModel.update({deleted: true },{where: {id: id}});
         return true;

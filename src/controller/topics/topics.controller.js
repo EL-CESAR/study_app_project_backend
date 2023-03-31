@@ -28,7 +28,6 @@ const listar = async function (req, res) {
 
 const consultarPorCodigo = async function (req, res) {
     console.log("consultar 1 topico por codigo");
-
     try {
         const topicsModelResult = await TopicsService.consultarPorCodigo(req.params.id);
 
@@ -51,9 +50,7 @@ const consultarPorCodigo = async function (req, res) {
             success: false,
             error: error.message
         });
-
     }
-
 };
 
 
@@ -87,7 +84,6 @@ const actualizar = async function (req, res) {
 
 const eliminar = async function (req, res) {
     console.log("eliminar topicos");
-
     try {
         const topicoRetorno = await TopicsService.eliminar(req.params.id);
         res.json({
@@ -100,8 +96,6 @@ const eliminar = async function (req, res) {
             success: false,
             error: error.message
         });
-
-
     }
 };
 

@@ -4,7 +4,6 @@ const UserService = require("../../service/users.service");
 
 const listar = async function (req, res) {
 console.log("listar usuarios controller");
-
     try {
         const users = await UserService.listar(req.query.filtro || '');
         if (users && users[0]) {
@@ -28,11 +27,8 @@ console.log("listar usuarios controller");
 };
 
 const consultarPorCodigo = async function (req, res) {
-
     console.log("consultar 1 usuario por codigo");
-
     try {
-
         const userModelResult = await UserService.busquedaPorCodigo(req.params.id);
         if (userModelResult) {
             res.json({
@@ -80,7 +76,6 @@ const actualizar = async function (req, res) {
 
 const eliminar = async function (req, res) {
     console.log("eliminar usuarios");
-  
     try {
         const usuarioRetorno = await UserService.eliminar(req.params.id);
         res.json({
@@ -95,7 +90,6 @@ const eliminar = async function (req, res) {
         });
     }
 };
-
 
 module.exports = {
     listar, busquedaPorCodigo: consultarPorCodigo, actualizar, eliminar

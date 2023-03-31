@@ -10,7 +10,6 @@ const listar = async function (textoBuscar) {
                                              AND UPPER(name) LIKE UPPER('%${textoBuscar}%') 
                                              ORDER BY id`);
         if (topics && topics[0]) {
-           
                 return topics[0];
         } else {
             return [];
@@ -23,10 +22,8 @@ const listar = async function (textoBuscar) {
 
 const consultarPorCodigo = async function (id) {
     console.log("consultar 1 topico por codigo");
-
     try {
         const topicsModelResult = await TopicModel.findByPk(id);
-
         if (topicsModelResult) {
             return topicsModelResult;
         } else {
@@ -37,13 +34,11 @@ const consultarPorCodigo = async function (id) {
         console.log(error);
         throw error;
     }
-
 };
 
 
 const actualizar = async function (id, create_date, name, topic_id, order, priority, color, user_id, owner_user_id) {
     console.log("actualizar topicos");
-    //Variables
         let topicoRetorno = null;
         const data = {id, create_date, name, topic_id, order, priority, color, user_id, owner_user_id};
         try {
@@ -67,7 +62,6 @@ const actualizar = async function (id, create_date, name, topic_id, order, prior
 
 const eliminar = async function (id) {
     console.log("eliminar topicos");
-
     try {
         await TopicModel.destroy({ where: { id: id } });
         return true;
@@ -75,8 +69,6 @@ const eliminar = async function (id) {
 
         console.log(error);
         throw error;
-
-
     }
 };
 
